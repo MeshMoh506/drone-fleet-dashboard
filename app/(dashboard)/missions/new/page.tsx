@@ -1,0 +1,1 @@
+export default function NewMissionPage() { return <div className="p-6"><h1>Create New Mission</h1><form className="space-y-4"><input className="border p-2" placeholder="Mission Name" /><button className="bg-blue-500 text-white p-2">Submit</button></form></div>; }

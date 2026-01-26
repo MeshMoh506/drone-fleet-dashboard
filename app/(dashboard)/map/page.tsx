@@ -1,0 +1,1 @@
+export default function MapPage() { return <div className="h-screen w-full"><h1>Live Drone Map</h1><div className="bg-gray-200 h-96 w-full flex items-center justify-center">Map Placeholder</div></div>; }
