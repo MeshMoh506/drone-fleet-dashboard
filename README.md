@@ -142,7 +142,7 @@ npm start
 - [x] TypeScript strict mode configuration
 - [x] Mock database with 25 drones & 50+ missions
 - [x] API Routes (Route Handlers)
-- [ ] Server Actions for mutations
+- [done] Server Actions for mutations
 - [ ] Fleet Overview page
 - [ ] Live Map view
 - [ ] Mission Planning interface

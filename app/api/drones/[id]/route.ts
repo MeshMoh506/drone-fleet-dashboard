@@ -9,7 +9,7 @@ export async function GET(
   try {
     const { id } = await params;
 
-    // Simulate network delay
+    // Simulate network delay to test loading states not for real-time data fetching
     await delay(Math.random() * 300 + 200);
 
     // Simulate 5% error rate
@@ -20,7 +20,7 @@ export async function GET(
       );
     }
 
-    // Get drone from mock database
+    // Get drone from mock database which we created to Simulate API routes in this web with actual data
     const drone = mockDb.getDrone(id);
 
     if (!drone) {

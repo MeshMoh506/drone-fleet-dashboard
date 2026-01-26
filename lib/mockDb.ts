@@ -37,7 +37,7 @@ class MockDatabase {
     // San Francisco coordinates as base
     const baseLat = 37.7749;
     const baseLng = -122.4194;
-
+    // Create 25 drones as mock data
     for (let i = 1; i <= 25; i++) {
       const status = randomChoice(statuses);
       const drone: Drone = {
@@ -348,7 +348,7 @@ class MockDatabase {
   }
 }
 
-// Singleton instance
+//  instance so it can be imported and used across the web
 export const mockDb = new MockDatabase();
 
 // Cleanup on process exit (only in Node.js environment)
