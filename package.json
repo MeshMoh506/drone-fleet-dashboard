@@ -1,17 +1,17 @@
 {
   "name": "drone-fleet-dashboard",
   "version": "0.1.0",
-"private": true,
-"scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint",
-  "type-check": "tsc --noEmit",
-  "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
-  "test:types": "tsc --noEmit",
-  "test:lint": "next lint"
-},
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "test:types": "tsc --noEmit",
+    "test:lint": "next lint"
+  },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@tanstack/react-query": "^5.90.20",

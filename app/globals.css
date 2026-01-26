@@ -81,3 +81,7 @@ body {
 .leaflet-popup-content {
   padding: 0.5rem;
 }
+
+.leaflet-default-icon-path {
+  background-image: url('https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png');
+}
