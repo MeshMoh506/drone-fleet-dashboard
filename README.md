@@ -1,36 +1,171 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[ Drone Fleet Management Dashboard ]
 
-## Getting Started
+A production-grade drone fleet management interface built with Next.js 15+ App Router, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## Features
+
+- **Fleet Overview** - Real-time monitoring of 25+ drones
+- **Live Map View** - Interactive map with drone positions
+- **Mission Planning** - Create and manage flight missions
+- **Analytics Dashboard** - Flight statistics and performance metrics
+- **Drone Details** - Comprehensive telemetry and mission history
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **State Management:** React Query + Zustand i may to use
+- **Maps:** Leaflet / not heavy and only import it when need
+- **Charts:** Recharts
+- **Animations:** Framer Motion
+
+## Installation
 
 ```bash
+# Clone repository
+git clone https://github.com/YOUR_USERNAME/drone-fleet-dashboard.git
+
+# Navigate to project
+cd drone-fleet-dashboard
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+for check : (http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
 
-## Learn More
+after long planning and seacrshing with Ai , I created this :
 
-To learn more about Next.js, take a look at the following resources:
+drone-fleet-dashboard/
+├── app/
+│   ├── (dashboard)/         # Dashboard routes
+│   │   ├── fleet/          # Fleet overview page
+│   │   ├── map/            # Live map view
+│   │   ├── missions/       # Mission management
+│   │   ├── analytics/      # Analytics dashboard
+│   │   └── drones/[id]/    # Drone detail view
+│   ├── api/                # API routes (Route Handlers)
+│   │   ├── drones/         # Drone endpoints
+│   │   ├── missions/       # Mission endpoints
+│   │   └── telemetry/      # Telemetry endpoint
+│   └── actions/            # Server Actions
+├── components/             # React components
+│   ├── ui/                # Reusable UI components
+│   ├── fleet/             # Fleet-specific components
+│   ├── map/               # Map components
+│   └── shared/            # Shared components
+├── lib/
+│   ├── types.ts           # TypeScript interfaces
+│   ├── mockDb.ts          # Mock database (25 drones, 50+ missions)
+│   ├── utils.ts           # Utility functions
+│   └── validations.ts     # Form validation schemas
+└── hooks/                 # Custom React hooks
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture Decisions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Server vs Client Components
 
-## Deploy on Vercel
+- **Server Components** by default for better performance
+- **Client Components** only for interactivity (forms, state ,maps, animations)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Data Fetching
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Route Handlers** for GET requests
+- **Server Actions** for mutations (create, update, delete) on data
+- **React Query** for client-side caching and polling
+
+### Mock Database as needed :
+
+- Simulates 25 drones with varied states
+- 50+ historical missions
+- Real-time telemetry updates every second
+- Automatic battery drain and status changes
+
+## Key Features
+
+### Live Simulation
+
+- Drone positions update in real-time
+- Battery levels decrease over time
+- Random status changes (online/offline)
+- Automatic charging when battery is low
+
+### API Routes
+
+- Network delay simulation (200-500ms)
+- 5% error rate for testing error handling
+- Proper TypeScript typing
+- RESTful design
+
+## API Endpoints
+
+```
+GET    /api/drones              # Get all drones
+GET    /api/drones/:id          # Get single drone
+PATCH  /api/drones/:id          # Update drone status
+GET    /api/missions            # Get all missions
+POST   /api/missions            # Create mission
+DELETE /api/missions?id=:id    # Delete mission
+GET    /api/telemetry           # Get all telemetry
+GET    /api/telemetry?droneId=:id  # Get drone telemetry
+```
+
+## Development
+
+```bash
+# Run dev server
+npm run dev // i use this to run my webSite
+
+# Type check
+npx tsc --noEmit // to check for errors
+
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+## Current Progress
+
+- [x] Project setup with Next.js 14+ App Router
+- [x] TypeScript strict mode configuration
+- [x] Mock database with 25 drones & 50+ missions
+- [x] API Routes (Route Handlers)
+- [ ] Server Actions for mutations
+- [ ] Fleet Overview page
+- [ ] Live Map view
+- [ ] Mission Planning interface
+- [ ] Analytics dashboard
+- [ ] Drone Detail view
+
+## 🚧 Next Steps I am going to do ::
+
+1. Implement Server Actions for create/update/delete operations
+2. Build Fleet Overview page with filters and search
+3. Create interactive map with Leaflet
+4. Develop mission planning interface
+5. Build analytics charts with Recharts
+
+## some resources :
+
+I used : https://www.researchgate.net/figure/Database-schema-of-the-reconnaissance-platform-showing-the-relational-structure-for_fig3_393889665
+for better design my mock data
+
+## 📄 License
+
+MIT
+
+## 👤 Author
+
+Meshari
