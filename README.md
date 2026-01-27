@@ -158,11 +158,11 @@ TO do :
 
 - [ ] Drone Detail View page
 - [ ] Live telemetry display
-- [ ] Mission history table
+- [x] Mission history table
 - [ ] Drone command interface
-- [ ] Live Map view with Leaflet
-- [ ] Mission Planning interface with waypoint drawing
-- [ ] Analytics dashboard with Recharts
+- [x] Live Map view with Leaflet
+- [x] Mission Planning interface with waypoint drawing
+- [x] Analytics dashboard with Recharts
 - [ ] Performance optimizations (virtualization, memoization)
 - [ ] Full responsive design polish
 - [ ] Accessibility improvements
@@ -177,6 +177,8 @@ TO do :
 
 I used : https://www.researchgate.net/figure/Database-schema-of-the-reconnaissance-platform-showing-the-relational-structure-for_fig3_393889665
 for better design my mock data
+
+https://react-leaflet.js.org for map page
 
 ## 📄 License
 
