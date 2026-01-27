@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Link from 'next/link';
 import { Drone } from '@/lib/types';
 import { Battery, MapPin, Clock, ChevronRight } from 'lucide-react';
@@ -8,7 +9,7 @@ interface DroneCardProps {
   viewMode: 'grid' | 'list';
 }
 
-export default function DroneCard({ drone, viewMode }: DroneCardProps) {
+const DroneCard = memo(function DroneCard({ drone, viewMode }: DroneCardProps) {
   const statusColors = {
     online: 'bg-green-500',
     offline: 'bg-gray-500',
@@ -143,4 +144,6 @@ export default function DroneCard({ drone, viewMode }: DroneCardProps) {
       </div>
     </Link>
   );
-}
+});
+
+export default DroneCard;
