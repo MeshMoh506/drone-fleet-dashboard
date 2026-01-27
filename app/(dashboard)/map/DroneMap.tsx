@@ -63,7 +63,7 @@ export default function DroneMap({ initialDrones }: DroneMapProps) {
   const currentDrones = drones || initialDrones;
 
   // San Francisco center
-  const center: LatLngExpression = [37.7749, -122.4194];
+  const center: LatLngExpression = [24.7136, 46.6753];
 
   // Filter stats
   const stats = {

@@ -34,9 +34,10 @@ class MockDatabase {
       'Parrot Anafi',
     ] as const;
 
-    // San Francisco coordinates as base
-    const baseLat = 37.7749;
-    const baseLng = -122.4194;
+    // Riyadh 😊 coordinates as base
+    const baseLat = 24.7136;
+    const baseLng = 46.6753;
+
     // Create 25 drones as mock data
     for (let i = 1; i <= 25; i++) {
       const status = randomChoice(statuses);
@@ -114,8 +115,8 @@ class MockDatabase {
 
   // Generate random waypoints for a mission
   private generateWaypoints(count: number): Waypoint[] {
-    const baseLat = 37.7749;
-    const baseLng = -122.4194;
+    const baseLat = 24.7136;
+    const baseLng = 46.6753;
     const actions = ['hover', 'capture', 'scan', 'none'] as const;
 
     return Array.from({ length: count }, (_, i) => ({
