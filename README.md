@@ -1,191 +1,180 @@
-[ Drone Fleet Management Dashboard ]
+Drone Fleet Management Dashboard
+A production-grade drone fleet management interface built with Next.js 16 App Router, TypeScript, and Tailwind CSS. This project demonstrates modern web development practices with real-time data updates, interactive maps, and comprehensive analytics.
 
-A production-grade drone fleet management interface built with Next.js 15+ App Router, TypeScript, and Tailwind CSS.
+Live Demo
+Repository: https://github.com/MeshMoh506/drone-fleet-dashboard
 
-## Features
+---
 
-- **Fleet Overview** - Real-time monitoring of 25+ drones
-- **Live Map View** - Interactive map with drone positions
-- **Mission Planning** - Create and manage flight missions
-- **Analytics Dashboard** - Flight statistics and performance metrics
-- **Drone Details** - Comprehensive telemetry and mission history
+Key Features
+Core Features (All Implemented)
+Fleet Overview: Real-time monitoring of 25+ drones with advanced filtering.
 
-## 🛠️ Tech Stack
+Live Map View: Interactive map with real-time drone positions centered on Riyadh.
 
-- **Framework:** Next.js 16 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4
-- **State Management:** React Query + Zustand i may to use
-- **Maps:** Leaflet / not heavy and only import it when need
-- **Charts:** Recharts
-- **Animations:** Framer Motion
+Mission Planning: Click-to-add waypoints with drag-to-reorder functionality.
 
-## Installation
+Analytics Dashboard: Comprehensive charts and statistics using Recharts.
 
-```bash
+Drone Detail View: Live telemetry, commands, and mission history.
+
+Advanced Features
+Real-time updates: Data refreshes every 1-2 seconds with polling.
+
+Interactive maps: Leaflet integration with custom markers and dynamic imports.
+
+Optimistic updates: Instant UI feedback using React Query.
+
+Live Simulation: Positions update, battery drains, and drones auto-charge when low.
+
+Type-safe: TypeScript strict mode throughout with zero any types.
+
+---
+
+Tech Stack
+Category Technology
+Framework Next.js 16 (App Router)
+Language TypeScript (Strict Mode)
+Styling Tailwind CSS v4State
+ManagementReact Query + Zustand
+Maps Leaflet + React Leaflet ChartsRecharts Icons Lucide ReactAnimationsFramer MotionNotifications Sonner
+
+---
+
+Installation :
+
 # Clone repository
-git clone https://github.com/YOUR_USERNAME/drone-fleet-dashboard.git
 
-# Navigate to project
+git clone https://github.com/MeshMoh506/drone-fleet-dashboard.git
 cd drone-fleet-dashboard
 
 # Install dependencies
+
 npm install
 
 # Run development server
+
 npm run dev
-```
 
-for check : (http://localhost:3000).
+---
 
-## Project Structure
+Open http://localhost:3000 to see the dashboard.
 
-```
+---
 
-after long planning and seacrshing with Ai , I created this as bais and not full folders list :
-
-drone-fleet-dashboard/
+drone-fleet-dashboard/ main Structure not fully!
 ├── app/
-│   ├── (dashboard)/         # Dashboard routes
-│   │   ├── fleet/          # Fleet overview page
-│   │   ├── map/            # Live map view
-│   │   ├── missions/       # Mission management
-│   │   ├── analytics/      # Analytics dashboard
-│   │   └── drones/[id]/    # Drone detail view
-│   ├── api/                # API routes (Route Handlers)
-│   │   ├── drones/         # Drone endpoints
-│   │   ├── missions/       # Mission endpoints
-│   │   └── telemetry/      # Telemetry endpoint
-│   └── actions/            # Server Actions
-├── components/             # React components
-│   ├── ui/                # Reusable UI components
-│   ├── fleet/             # Fleet-specific components
-│   ├── map/               # Map components
-│   └── shared/            # Shared components
+│ ├── (dashboard)/ # Dashboard routes
+│ │ ├── fleet/ # Fleet overview with filters
+│ │ ├── map/ # Live map with drone positions
+│ │ ├── missions/ # Mission planning and management
+│ │ ├── analytics/ # Analytics dashboard
+│ │ └── drones/[id]/ # Drone detail view
+│ ├── api/ # Route Handlers (GET/POST/PATCH)
+│ ├── actions/ # Server Actions for mutations
+│ ├── providers.tsx # Context and Query providers
+│ └── layout.tsx # Root layout with fonts
+├── components/
+│ ├── ui/ # Reusable UI (Skeletons, Error boundaries)
+│ ├── fleet/ # Fleet-specific components
+│ ├── map/ # Map-specific components
+│ └── shared/ # Shared layout components
 ├── lib/
-│   ├── types.ts           # TypeScript interfaces
-│   ├── mockDb.ts          # Mock database (25 drones, 50+ missions)
-│   ├── utils.ts           # Utility functions
-│   └── validations.ts     # Form validation schemas
-└── hooks/                 # Custom React hooks
-```
+│ ├── types.ts # TypeScript interfaces
+│ ├── mockDb.ts # Mock database (25 drones, 55 missions)
+│ ├── utils.ts # Utility functions
+│ └── validations.ts # Zod schemas
+├── hooks/ # Custom hooks (useDrones, useTelemetry)
+└── store/
+└── useFilterStore.ts # Zustand UI state
 
-## Architecture Decisions
+    ------------------------------------
 
-### Server vs Client Components
+Architecture Highlights :
 
-- **Server Components** by default for better performance
-- **Client Components** only for interactivity (forms, state ,maps, animations)
+Server vs Client Components
+Server Components are used by default for optimal performance and SEO.
 
-### Data Fetching
+Client Components are used only for interactivity (Leaflet maps, Framer Motion, and stateful forms).
 
-- **Route Handlers** for GET requests
-- **Server Actions** for mutations (create, update, delete) on data
-- **React Query** for client-side caching and polling
+Data Fetching Strategy
+Server Components fetch initial data (SSR).
 
-### Mock Database as needed :
+React Query handles client-side caching, polling, and synchronization.
 
-- Simulates 25 drones with varied states
-- 50+ historical missions
-- Real-time telemetry updates every second
-- Automatic battery drain and status changes
+Server Actions process all mutations (Create mission, update drone status).
 
-## Key Features
+Route Handlers provide REST API endpoints with simulated network delay (200-500ms).
 
-### Live Simulation
+---
 
-- Drone positions update in real-time
-- Battery levels decrease over time
-- Random status changes (online/offline)
-- Automatic charging when battery is low
+Simulation Logic :
+Dynamic Telemetry: Battery levels decrease over time and positions update in real-time.
 
-### API Routes
+Auto Behaviors: Drones change status to "Charging" when battery is low and toggle "Online/Offline" states.
 
-- Network delay simulation (200-500ms)
-- 5% error rate for testing error handling
-- Proper TypeScript typing
-- RESTful design
+---
 
-## API Endpoints
+API Endpoints :
 
-```
-GET    /api/drones              # Get all drones
-GET    /api/drones/:id          # Get single drone
-PATCH  /api/drones/:id          # Update drone status
-GET    /api/missions            # Get all missions
-POST   /api/missions            # Create mission
-DELETE /api/missions?id=:id    # Delete mission
-GET    /api/telemetry           # Get all telemetry
-GET    /api/telemetry?droneId=:id  # Get drone telemetry
-```
+# Drones
 
-## Development
+GET /api/drones # Get all drones (supports filtering)
+GET /api/drones/:id # Get single drone details
+PATCH /api/drones/:id # Update drone status/commands
 
-```bash
-# Run dev server
-npm run dev // i use this to run my webSite
+# Missions
 
-# Type check
-npx tsc --noEmit // to check for errors
+GET /api/missions # Get mission history
+POST /api/missions # Create new mission
+DELETE /api/missions?id=:id # Delete mission record
 
+# Telemetry
+
+GET /api/telemetry # Get global telemetry
+GET /api/telemetry?droneId=:id # Get specific drone telemetry
+
+---
+
+Development Commands :
+
+# Start development server
+
+npm run dev
 
 # Build for production
+
 npm run build
 
 # Start production server
+
 npm start
-```
 
-## Current Progress
+# Code Quality
 
-- [x] Project setup with Next.js 14+ App Router
-- [x] TypeScript strict mode configuration
-- [x] Tailwind CSS v4 setup
-- [x] Mock database with 25 drones & 55 missions
-- [x] API Routes (Route Handlers)
-- [x] Server Actions for mutations
-- [x] React Query setup with providers
-- [x] Zustand store for filters
-- [x] Custom hooks (useDrones, useMissions, useTelemetry)
-- [x] Loading skeletons and error boundaries
-- [x] Font optimization with next/font
-- [x] Fleet Overview page with real-time updates
-- [x] Search and filter functionality
-- [x] Grid/List view toggle
-- [x] Drone cards with live data
+npm run lint # Run ESLint
+npm run type-check # TypeScript validation
 
-TO do :
+---
 
-- [x] Drone Detail View page
-- [x] Live telemetry display
-- [x] Mission history table
-- [x] Drone command interface
-- [x] Live Map view with Leaflet
-- [x] Mission Planning interface with waypoint drawing
-- [x] Analytics dashboard with Recharts
-- [x] Performance optimizations (virtualization, memoization)
-- [x] Full responsive design polish
-- [x] Accessibility improvements
+Requirement,Status,Implementation
+Next.js 15+ App Router,Complete,Built on Next.js 16
+TypeScript Strict Mode,Complete,Zero use of any
+Tailwind CSS v4,Complete,Used for all styling
+Real-time Updates,Complete,1-2s polling with React Query
+Responsive Design,Complete,Mobile-first approach
+Mock Database,Complete,"25 drones, 55+ missions"
 
-1. Implement Server Actions for create/update/delete operations
-2. Build Fleet Overview page with filters and search
-3. Create interactive map with Leaflet
-4. Develop mission planning interface
-5. Build analytics charts with Recharts
+---
 
-## some resources :
-
-I used : https://www.researchgate.net/figure/Database-schema-of-the-reconnaissance-platform-showing-the-relational-structure-for_fig3_393889665
-for better design my mock data
-
-https://react-leaflet.js.org for map page
-
-https://sonner.emilkowal.ski/ for sonner notifactions
-
-## 📄 License
-
+License
 MIT
 
-## 👤 Author
+Author
+Meshari Frontend Developer
 
-Meshari
+GitHub: @MeshMoh506
+
+Last Updated: January 2026
+
+Status: Complete - All requirements met
