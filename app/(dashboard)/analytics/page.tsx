@@ -5,8 +5,9 @@ import {
   ChartSkeleton,
   StatsCardSkeleton,
 } from '@/components/ui/LoadingSkeleton';
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Analytics Dashboard | Drone Fleet Management',
   description: 'Fleet analytics and performance metrics',
 };

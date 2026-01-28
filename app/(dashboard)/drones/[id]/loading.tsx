@@ -1,4 +1,4 @@
-import { SkeletonLoader, DroneLoader } from '@/components/ui/AnimatedLoaders';
+import { SkeletonLoader } from '@/components/ui/AnimatedLoaders';
 
 export default function DroneDetailLoading() {
   return (

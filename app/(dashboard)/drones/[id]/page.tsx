@@ -12,9 +12,7 @@ export async function generateMetadata({
   const drone = mockDb.getDrone(id);
 
   if (!drone) {
-    return {
-      title: 'Drone Not Found',
-    };
+    notFound();
   }
 
   return {

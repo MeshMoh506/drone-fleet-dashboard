@@ -29,16 +29,16 @@ export default function DroneHeader({ drone }: DroneHeaderProps) {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 md:p-6">
-      {/* Mobile: Stack, Desktop: Row */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-        {/* Left: Drone Info */}
+      {/* Mobile: Stack vertically, Desktop: Side by side */}
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        {/* Left side: Drone info */}
         <div className="flex items-start gap-4">
           {/* Drone Icon */}
           <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
             <Plane className="w-7 h-7 md:w-8 md:h-8 text-white" />
           </div>
 
-          {/* Drone Details */}
+          {/* Drone Info */}
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white truncate">
               {drone.name}
@@ -60,33 +60,32 @@ export default function DroneHeader({ drone }: DroneHeaderProps) {
           </div>
         </div>
 
-        {/* Right: Battery - Fixed for Mobile */}
-        <div className="flex flex-col gap-2 md:text-right">
-          {/* Battery Percentage */}
-          <div className="flex items-center gap-2 md:justify-end">
+        {/* Right side: Battery - Responsive layout */}
+        <div className="flex md:flex-col items-center md:items-end gap-3 md:gap-0 md:text-right">
+          <div className="flex items-center gap-2 md:justify-end md:mb-1">
             <Battery className={`w-5 h-5 ${batteryColor}`} />
             <span className={`text-2xl md:text-3xl font-bold ${batteryColor}`}>
               {Math.round(drone.battery)}%
             </span>
           </div>
 
-          {/* Battery Label */}
-          <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-            Battery Level
-          </p>
-
-          {/* Battery Bar */}
-          <div className="w-full max-w-xs md:max-w-none md:w-48 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div
-              className={`h-full transition-all duration-500 ${
-                drone.battery > 60
-                  ? 'bg-green-500'
-                  : drone.battery > 30
-                    ? 'bg-yellow-500'
-                    : 'bg-red-500'
-              }`}
-              style={{ width: `${drone.battery}%` }}
-            />
+          {/* Battery Bar - Adjust width for mobile */}
+          <div className="flex-1 md:flex-none md:mt-3">
+            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2 md:mb-1">
+              Battery Level
+            </p>
+            <div className="w-full md:w-48 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div
+                className={`h-full transition-all duration-500 ${
+                  drone.battery > 60
+                    ? 'bg-green-500'
+                    : drone.battery > 30
+                      ? 'bg-yellow-500'
+                      : 'bg-red-500'
+                }`}
+                style={{ width: `${drone.battery}%` }}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -26,7 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className={inter.className}>
+      {/* FIX: Added suppressHydrationWarning here to prevent 
+        browser extensions from triggering React hydration errors.
+      */}
+      <body className={inter.className} suppressHydrationWarning>
         <ThemeProvider>
           <Providers>
             {children}

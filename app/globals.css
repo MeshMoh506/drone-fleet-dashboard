@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /* Custom theme configuration */
-@theme {
+:root {
   --color-status-online: #10b981;
   --color-status-offline: #6b7280;
   --color-status-charging: #f59e0b;
