@@ -62,7 +62,9 @@ Open http://localhost:3000 to see the dashboard.
 
 ---
 
-drone-fleet-dashboard/ main Structure not fully!
+main Structure not fully!
+
+drone-fleet-dashboard/
 ├── app/
 │ ├── (dashboard)/ # Dashboard routes
 │ │ ├── fleet/ # Fleet overview with filters
