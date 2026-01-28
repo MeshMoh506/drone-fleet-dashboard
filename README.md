@@ -66,29 +66,29 @@ main Structure not fully!
 
 drone-fleet-dashboard/
 ├── app/
-│ ├── (dashboard)/ # Dashboard routes
-│ │ ├── fleet/ # Fleet overview with filters
-│ │ ├── map/ # Live map with drone positions
-│ │ ├── missions/ # Mission planning and management
-│ │ ├── analytics/ # Analytics dashboard
-│ │ └── drones/[id]/ # Drone detail view
-│ ├── api/ # Route Handlers (GET/POST/PATCH)
-│ ├── actions/ # Server Actions for mutations
-│ ├── providers.tsx # Context and Query providers
-│ └── layout.tsx # Root layout with fonts
+│   ├── (dashboard)/           # Dashboard routes
+│   │   ├── fleet/             # Fleet overview with filters
+│   │   ├── map/               # Live map with drone positions
+│   │   ├── missions/          # Mission planning and management
+│   │   ├── analytics/         # Analytics dashboard
+│   │   └── drones/[id]/       # Drone detail view
+│   ├── api/                   # Route Handlers (GET/POST/PATCH)
+│   ├── actions/               # Server Actions for mutations
+│   ├── providers.tsx          # Context and Query providers
+│   └── layout.tsx             # Root layout with fonts
 ├── components/
-│ ├── ui/ # Reusable UI (Skeletons, Error boundaries)
-│ ├── fleet/ # Fleet-specific components
-│ ├── map/ # Map-specific components
-│ └── shared/ # Shared layout components
+│   ├── ui/                    # Reusable UI (Skeletons, Error boundaries)
+│   ├── fleet/                 # Fleet-specific components
+│   ├── map/                   # Map-specific components
+│   └── shared/                # Shared layout components
 ├── lib/
-│ ├── types.ts # TypeScript interfaces
-│ ├── mockDb.ts # Mock database (25 drones, 55 missions)
-│ ├── utils.ts # Utility functions
-│ └── validations.ts # Zod schemas
-├── hooks/ # Custom hooks (useDrones, useTelemetry)
+│   ├── types.ts               # TypeScript interfaces
+│   ├── mockDb.ts              # Mock database (25 drones, 55 missions)
+│   ├── utils.ts               # Utility functions
+│   └── validations.ts         # Zod schemas
+├── hooks/                     # Custom hooks (useDrones, useTelemetry)
 └── store/
-└── useFilterStore.ts # Zustand UI state
+    └── useFilterStore.ts      # Zustand UI state
 
 ```
 
