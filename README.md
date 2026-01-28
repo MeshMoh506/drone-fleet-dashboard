@@ -42,7 +42,7 @@ for check : (http://localhost:3000).
 
 ```
 
-after long planning and seacrshing with Ai , I created this :
+after long planning and seacrshing with Ai , I created this as bais and not full folders list :
 
 drone-fleet-dashboard/
 ├── app/
@@ -156,16 +156,16 @@ npm start
 
 TO do :
 
-- [ ] Drone Detail View page
-- [ ] Live telemetry display
+- [x] Drone Detail View page
+- [x] Live telemetry display
 - [x] Mission history table
-- [ ] Drone command interface
+- [x] Drone command interface
 - [x] Live Map view with Leaflet
 - [x] Mission Planning interface with waypoint drawing
 - [x] Analytics dashboard with Recharts
-- [ ] Performance optimizations (virtualization, memoization)
-- [ ] Full responsive design polish
-- [ ] Accessibility improvements
+- [x] Performance optimizations (virtualization, memoization)
+- [x] Full responsive design polish
+- [x] Accessibility improvements
 
 1. Implement Server Actions for create/update/delete operations
 2. Build Fleet Overview page with filters and search
@@ -189,5 +189,3 @@ MIT
 ## 👤 Author
 
 Meshari
-
-Active Development (40% Complete)
