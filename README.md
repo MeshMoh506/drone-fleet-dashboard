@@ -90,6 +90,8 @@ drone-fleet-dashboard/
 └── store/
 └── useFilterStore.ts # Zustand UI state
 
+```
+
     ------------------------------------
 
 Architecture Highlights :
@@ -180,3 +182,4 @@ GitHub: @MeshMoh506
 Last Updated: January 2026
 
 Status: Complete - All requirements met
+```
