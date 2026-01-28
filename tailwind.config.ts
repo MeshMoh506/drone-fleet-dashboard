@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,6 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        background: {
+          light: '#ffffff',
+          dark: '#0f172a',
+        },
+        surface: {
+          light: '#f9fafb',
+          dark: '#1e293b',
+        }, // Added missing closing brace here
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',

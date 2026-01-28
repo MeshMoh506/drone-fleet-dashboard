@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Providers from '././providers';
+import Providers from './providers';
 import { Toaster } from '@/components/ui/Toaster';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import FloatingThemeToggle from '@/components/FloatingThemeToggle';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,12 +25,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>
-          {children}
-          <Toaster />
-        </Providers>
+        <ThemeProvider>
+          <Providers>
+            {children}
+            <FloatingThemeToggle />
+            <Toaster />
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );
