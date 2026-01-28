@@ -1,5 +1,6 @@
 'use client';
 
+import { toast } from 'sonner';
 import { useState } from 'react';
 import { Drone } from '@/lib/types';
 import { sendDroneCommand, emergencyStop } from '@/app/actions/drones';
@@ -18,27 +19,30 @@ interface CommandPanelProps {
 
 export default function CommandPanel({ drone }: CommandPanelProps) {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{
-    type: 'success' | 'error';
-    text: string;
-  } | null>(null);
 
   const handleCommand = async (command: 'ARM' | 'TAKEOFF' | 'LAND' | 'RTL') => {
     setLoading(true);
-    setMessage(null);
 
-    const result = await sendDroneCommand(drone.id, command);
+    try {
+      const result = await sendDroneCommand(drone.id, command);
 
-    setLoading(false);
-
-    if (result.success) {
-      setMessage({ type: 'success', text: result.message || 'Command sent!' });
-    } else {
-      setMessage({ type: 'error', text: result.error || 'Command failed' });
+      if (result.success) {
+        toast.success(result.message || 'Command sent successfully!', {
+          description: `${drone.name} is now executing ${command}`,
+        });
+      } else {
+        toast.error(result.error || 'Command failed', {
+          description: 'Please try again or check drone status',
+        });
+      }
+    } catch (error) {
+      toast.error('Failed to send command', {
+        description: 'Network error occurred',
+      });
+      console.error('Command error:', error);
+    } finally {
+      setLoading(false);
     }
-
-    // Clear message after 3 seconds
-    setTimeout(() => setMessage(null), 3000);
   };
 
   const handleEmergencyStop = async () => {
@@ -47,25 +51,28 @@ export default function CommandPanel({ drone }: CommandPanelProps) {
     }
 
     setLoading(true);
-    setMessage(null);
 
-    const result = await emergencyStop(drone.id);
+    try {
+      const result = await emergencyStop(drone.id);
 
-    setLoading(false);
-
-    if (result.success) {
-      setMessage({
-        type: 'success',
-        text: result.message || 'Emergency stop activated!',
+      if (result.success) {
+        toast.error(result.message || 'Emergency stop activated!', {
+          description: `${drone.name} has been stopped immediately`,
+          duration: 5000,
+        });
+      } else {
+        toast.error(result.error || 'Emergency stop failed', {
+          description: 'Critical: Manual intervention may be required',
+        });
+      }
+    } catch (error) {
+      toast.error('Emergency stop failed', {
+        description: 'Critical error - contact support immediately',
       });
-    } else {
-      setMessage({
-        type: 'error',
-        text: result.error || 'Emergency stop failed',
-      });
+      console.error('Emergency stop error:', error);
+    } finally {
+      setLoading(false);
     }
-
-    setTimeout(() => setMessage(null), 3000);
   };
 
   const commands = [
@@ -102,19 +109,6 @@ export default function CommandPanel({ drone }: CommandPanelProps) {
   return (
     <div className="bg-white rounded-lg shadow p-6 sticky top-6">
       <h2 className="text-xl font-bold text-gray-900 mb-4">Drone Control</h2>
-
-      {/* Status Message */}
-      {message && (
-        <div
-          className={`mb-4 p-3 rounded-lg text-sm font-medium ${
-            message.type === 'success'
-              ? 'bg-green-50 text-green-800 border border-green-200'
-              : 'bg-red-50 text-red-800 border border-red-200'
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       {/* Command Buttons */}
       <div className="space-y-3 mb-6">

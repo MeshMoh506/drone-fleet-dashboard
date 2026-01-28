@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useOptimistic } from 'react';
+import { useState } from 'react';
 import {
   MapContainer,
   TileLayer,
@@ -12,6 +12,7 @@ import { Icon, LatLngExpression } from 'leaflet';
 import { Drone, Waypoint } from '@/lib/types';
 import { createMissionFromJson } from '@/app/actions/missions';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import MissionForm from './MissionForm';
 import WaypointList from './WaypointList';
 import 'leaflet/dist/leaflet.css';
@@ -19,18 +20,6 @@ import 'leaflet/dist/leaflet.css';
 interface MissionMapProps {
   availableDrones: Drone[];
 }
-
-// Waypoint marker icon
-const waypointIcon = new Icon({
-  iconUrl: `data:image/svg+xml;base64,${btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
-      <circle cx="12" cy="12" r="10" fill="#ef4444" stroke="white" stroke-width="2"/>
-      <text x="12" y="16" text-anchor="middle" fill="white" font-size="12" font-weight="bold">?</text>
-    </svg>
-  `)}`,
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-});
 
 // Component to handle map clicks
 function MapClickHandler({
@@ -69,6 +58,11 @@ export default function MissionMap({ availableDrones }: MissionMapProps) {
       action: 'none',
     };
     setWaypoints([...waypoints, newWaypoint]);
+
+    // Toast notification for waypoint added
+    toast.success('Waypoint added', {
+      description: `Waypoint ${waypoints.length + 1} at ${lat.toFixed(4)}, ${lng.toFixed(4)}`,
+    });
   };
 
   // Update waypoint
@@ -76,6 +70,9 @@ export default function MissionMap({ availableDrones }: MissionMapProps) {
     setWaypoints(
       waypoints.map((wp) => (wp.id === id ? { ...wp, ...updates } : wp))
     );
+    toast.info('Waypoint updated', {
+      description: 'Changes saved',
+    });
   };
 
   // Delete waypoint
@@ -84,6 +81,10 @@ export default function MissionMap({ availableDrones }: MissionMapProps) {
     // Reorder remaining waypoints
     const reordered = filtered.map((wp, index) => ({ ...wp, order: index }));
     setWaypoints(reordered);
+
+    toast.info('Waypoint removed', {
+      description: `${reordered.length} waypoint${reordered.length !== 1 ? 's' : ''} remaining`,
+    });
   };
 
   // Reorder waypoints
@@ -91,7 +92,7 @@ export default function MissionMap({ availableDrones }: MissionMapProps) {
     const newWaypoints = [...waypoints];
     const [removed] = newWaypoints.splice(fromIndex, 1);
 
-    if (!removed) return; // Safety check
+    if (!removed) return;
 
     newWaypoints.splice(toIndex, 0, removed);
     // Update order
@@ -109,35 +110,70 @@ export default function MissionMap({ availableDrones }: MissionMapProps) {
     // Validation
     if (!missionName.trim()) {
       setError('Mission name is required');
+      toast.error('Mission name required', {
+        description: 'Please enter a name for your mission',
+      });
       return;
     }
 
     if (!selectedDrone) {
       setError('Please select a drone');
+      toast.error('Drone required', {
+        description: 'Please select a drone for this mission',
+      });
       return;
     }
 
     if (waypoints.length < 5) {
       setError('At least 5 waypoints are required');
+      toast.error('Not enough waypoints', {
+        description: `Add ${5 - waypoints.length} more waypoint${5 - waypoints.length !== 1 ? 's' : ''}`,
+      });
       return;
     }
 
     setIsSaving(true);
 
-    const result = await createMissionFromJson({
-      name: missionName,
-      droneId: selectedDrone,
-      waypoints,
+    // Show loading toast
+    const loadingToast = toast.loading('Creating mission...', {
+      description: 'Please wait while we save your mission',
     });
 
-    setIsSaving(false);
+    try {
+      const result = await createMissionFromJson({
+        name: missionName,
+        droneId: selectedDrone,
+        waypoints,
+      });
 
-    if (result.success) {
-      // Redirect to missions list or show success
-      router.push('/fleet');
-      router.refresh();
-    } else {
-      setError(result.error || 'Failed to create mission');
+      // Dismiss loading toast
+      toast.dismiss(loadingToast);
+
+      if (result.success) {
+        toast.success('Mission created successfully!', {
+          description: `${missionName} has been saved with ${waypoints.length} waypoints`,
+          duration: 4000,
+        });
+
+        // Redirect after short delay
+        setTimeout(() => {
+          router.push('/fleet');
+          router.refresh();
+        }, 1000);
+      } else {
+        setError(result.error || 'Failed to create mission');
+        toast.error('Failed to create mission', {
+          description: result.error || 'Please try again',
+        });
+      }
+    } catch (err) {
+      toast.dismiss(loadingToast);
+      toast.error('Unexpected error', {
+        description: 'Failed to save mission. Please try again.',
+      });
+      setError('Unexpected error occurred');
+    } finally {
+      setIsSaving(false);
     }
   };
 

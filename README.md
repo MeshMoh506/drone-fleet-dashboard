@@ -180,6 +180,8 @@ for better design my mock data
 
 https://react-leaflet.js.org for map page
 
+https://sonner.emilkowal.ski/ for sonner notifactions
+
 ## 📄 License
 
 MIT
